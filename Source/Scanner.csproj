@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <Version></Version>
+    <Description></Description>
+    <PackageProjectUrl></PackageProjectUrl>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <RepositoryUrl></RepositoryUrl>
+    <Copyright></Copyright>
+    <PackageLicenseExpression></PackageLicenseExpression>
+    <Authors></Authors>
+    <Company></Company>
+    <PackageId></PackageId>
+    <Product></Product>
+    <PackageTags></PackageTags>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <AssemblyVersion></AssemblyVersion>
+    <FileVersion></FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

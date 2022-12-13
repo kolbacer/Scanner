@@ -1,41 +1,59 @@
-namespace Nakov.IO
+namespace IOutils
 {
     using System;
     using System.Text;
     using System.Globalization;
+    using System.IO;
 
     /// <summary>
-    /// Console input helper for C# and .NET. Allows simplified reading of numbers and string
-    /// tokens from the console in a way similar to `cin` in C++ and `java.util.Scanner` in Java.
+    /// Java-like Scanner for C#, based on Svetlin Nakov solution (Nakov.IO.Cin)
+    /// allows reading from console and file (only ASCII-like encodings at the moment)
     /// </summary>
     /// 
     /// <copyright>
     /// (c) Svetlin Nakov, 2011 - http://www.nakov.com
+    /// (c) Victor Scherevskiy, 2022 - https://github.com/kolbacer
     /// </copyright>
     /// 
     /// <example>
-    /// In C++ we will use `cin >> x >> y;`.
-    /// Using Nakov.IO.Cin we can do the same as follows:
     /// ```
-    /// int x = Cin.NextInt();
-    /// double y = Cin.NextDouble();
+    /// Scanner consoleScanner = new Scanner();
+    /// int x = consoleScanner.NextInt();
+    /// double y = consoleScanner.NextDouble();
     /// ```
     /// </example>
     /// 
-    public static class Cin
+    public class Scanner
     {
+        private Func<int> Read;
+
         /// <summary>
-        /// Reads a string token from the console,
-        /// skipping any leading and trailing whitespace.
+        /// Console scanner
         /// </summary>
-        public static string NextToken()
+        public Scanner()
+        {
+            Read = Console.Read;
+        }
+
+        /// <summary>
+        /// File scanner (ASCII-like encodings only)
+        /// </summary>
+        public Scanner(FileStream source)
+        {
+            Read = source.ReadByte;
+        }
+
+        /// <summary>
+        /// Reads a string token, skipping any leading and trailing whitespace.
+        /// </summary>
+        public string NextToken()
         {
             StringBuilder tokenChars = new StringBuilder();
             bool tokenFinished = false;
             bool skipWhiteSpaceMode = true;
             while (!tokenFinished)
             {
-                int nextChar = Console.Read();
+                int nextChar = Read();
                 if (nextChar == -1)
                 {
                     // End of stream reached
@@ -55,7 +73,7 @@ namespace Nakov.IO
                             if (ch == '\r' && (Environment.NewLine == "\r\n"))
                             {
                                 // Reached '\r' in Windows --> skip the next '\n'
-                                Console.Read();
+                                Read();
                             }
                         }
                     }
@@ -67,32 +85,30 @@ namespace Nakov.IO
                     }
                 }
             }
-            
+
             string token = tokenChars.ToString();
             return token;
         }
 
         /// <summary>
-        /// Reads an integer number from the console,
-        /// skipping any leading and trailing whitespace.
+        /// Reads an integer number, skipping any leading and trailing whitespace.
         /// </summary>
-        public static int NextInt()
+        public int NextInt()
         {
-            string token = Cin.NextToken();
+            string token = NextToken();
             return int.Parse(token);
         }
 
         /// <summary>
-        /// Reads a floating-point number from the console,
-        /// skipping any leading and trailing whitespace.
+        /// Reads a floating-point number, skipping any leading and trailing whitespace.
         /// </summary>
         /// <param name="acceptAnyDecimalSeparator">
         /// Specifies whether to accept any decimal separator
         /// ("." and ",") or the system's default separator only.
         /// </param>
-        public static double NextDouble(bool acceptAnyDecimalSeparator = true)
+        public double NextDouble(bool acceptAnyDecimalSeparator = true)
         {
-            string token = Cin.NextToken();
+            string token = NextToken();
             if (acceptAnyDecimalSeparator)
             {
                 token = token.Replace(',', '.');
@@ -107,16 +123,15 @@ namespace Nakov.IO
         }
 
         /// <summary>
-        /// Reads a decimal number from the console,
-        /// skipping any leading and trailing whitespace.
+        /// Reads a decimal number, skipping any leading and trailing whitespace.
         /// </summary>
         /// <param name="acceptAnyDecimalSeparator">
         /// Specifies whether to accept any decimal separator
         /// ("." and ",") or the system's default separator only.
         /// </param>
-        public static decimal NextDecimal(bool acceptAnyDecimalSeparator = true)
+        public decimal NextDecimal(bool acceptAnyDecimalSeparator = true)
         {
-            string token = Cin.NextToken();
+            string token = NextToken();
             if (acceptAnyDecimalSeparator)
             {
                 token = token.Replace(',', '.');
