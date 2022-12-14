@@ -3,28 +3,45 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <OutputType>Library</OutputType>
-    <Version></Version>
-    <Description></Description>
+    <Version>1.0.0</Version>
+    <Description>Scanner is an input reader for C#, which reads numbers and text in the Java's Scanner style.
+Original idea belongs to Svetlin Nakov - https://github.com/nakov/Nakov.io.cin
+I only added reading from file and renamed to Scanner.</Description>
     <PackageProjectUrl></PackageProjectUrl>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <RepositoryUrl></RepositoryUrl>
-    <Copyright></Copyright>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/kolbacer/Scanner</RepositoryUrl>
+    <Copyright>(c) 2011 - 2021 by Svetlin Nakov; (c) 2022 by Victor Scherevskiy</Copyright>
     <PackageLicenseExpression></PackageLicenseExpression>
-    <Authors></Authors>
+    <Authors>kolbacer</Authors>
     <Company></Company>
-    <PackageId></PackageId>
-    <Product></Product>
-    <PackageTags></PackageTags>
-    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageId>IOutils.Scanner</PackageId>
+    <Product>IOutils.Scanner</Product>
+    <PackageTags>C#; Java; Scanner</PackageTags>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <AssemblyVersion></AssemblyVersion>
-    <FileVersion></FileVersion>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+    <Title>Java-like Scanner</Title>
+    <PackageIcon>Scanner.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <EnableNETAnalyzers>False</EnableNETAnalyzers>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="..\LICENSE">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Scanner.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 
