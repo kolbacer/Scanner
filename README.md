@@ -5,6 +5,16 @@ Java-like Scanner for C#
 Original idea belongs to Svetlin Nakov - https://github.com/nakov/Nakov.io.cin \
 I only added reading from file and renamed to Scanner. 
 
+Install the NuGet Package
+-------------------------
+
+You can install the NuGet package [`IOutils.Scanner`](https://www.nuget.org/packages/IOutils.Scanner/):
+
+```
+Install-Package IOutils.Scanner
+```
+
+
 Sample C++ Code
 ---------------
 
