@@ -18,8 +18,8 @@ namespace IOutils
     /// <example>
     /// ```
     /// Scanner consoleScanner = new Scanner();
-    /// int x = consoleScanner.NextInt();
-    /// double y = consoleScanner.NextDouble();
+    /// int? x = consoleScanner.NextInt();
+    /// double? y = consoleScanner.NextDouble();
     /// ```
     /// </example>
     /// 
@@ -45,8 +45,9 @@ namespace IOutils
 
         /// <summary>
         /// Reads a string token, skipping any leading and trailing whitespace.
+        /// Returns null if no token was reached.
         /// </summary>
-        public string NextToken()
+        public string? NextToken()
         {
             StringBuilder tokenChars = new StringBuilder();
             bool tokenFinished = false;
@@ -86,29 +87,37 @@ namespace IOutils
                 }
             }
 
+            if (tokenChars.Length == 0) return null;
+
             string token = tokenChars.ToString();
             return token;
         }
 
         /// <summary>
         /// Reads an integer number, skipping any leading and trailing whitespace.
+        /// Returns null if no token was reached.
         /// </summary>
-        public int NextInt()
+        public int? NextInt()
         {
-            string token = NextToken();
+            string? token = NextToken();
+            if (token == null) return null;
+
             return int.Parse(token);
         }
 
         /// <summary>
         /// Reads a floating-point number, skipping any leading and trailing whitespace.
+        /// Returns null if no token was reached.
         /// </summary>
         /// <param name="acceptAnyDecimalSeparator">
         /// Specifies whether to accept any decimal separator
         /// ("." and ",") or the system's default separator only.
         /// </param>
-        public double NextDouble(bool acceptAnyDecimalSeparator = true)
+        public double? NextDouble(bool acceptAnyDecimalSeparator = true)
         {
-            string token = NextToken();
+            string? token = NextToken();
+            if (token == null) return null;
+
             if (acceptAnyDecimalSeparator)
             {
                 token = token.Replace(',', '.');
@@ -124,14 +133,18 @@ namespace IOutils
 
         /// <summary>
         /// Reads a decimal number, skipping any leading and trailing whitespace.
+        /// Returns null if no token was reached.
         /// </summary>
         /// <param name="acceptAnyDecimalSeparator">
         /// Specifies whether to accept any decimal separator
         /// ("." and ",") or the system's default separator only.
         /// </param>
-        public decimal NextDecimal(bool acceptAnyDecimalSeparator = true)
+        public decimal? NextDecimal(bool acceptAnyDecimalSeparator = true)
         {
-            string token = NextToken();
+            string? token = NextToken();
+
+            if (token == null) return null;
+
             if (acceptAnyDecimalSeparator)
             {
                 token = token.Replace(',', '.');

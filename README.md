@@ -48,9 +48,9 @@ public class EnteringNumbers
         Scanner sc = new Scanner();
         Console.WriteLine("Enter a number:");
         
-        int number = sc.nextInt();
+        int? number = sc.nextInt();
         
-        Console.WriteLine("Thanks! You entered a number " + number);
+        Console.WriteLine("Thanks! You entered a number " + number.Value);
     }
 }
 ```
@@ -59,6 +59,7 @@ More Detailed Example
 
 ```cs
 using System;
+using System.Collections.Generic;
 using System.IO;
 using IOutils;
 
@@ -66,11 +67,9 @@ public class ScannerExample
 {
     static void Main()
     {
-        Scanner consoleScanner = new Scanner();
-        Scanner fileScanner = new Scanner(File.OpenRead(
-            @"..\..\..\Test\test.txt"));
-
         // Console test
+
+        Scanner consoleScanner = new Scanner();
 
         Console.WriteLine("Console test\n");
 
@@ -79,39 +78,51 @@ public class ScannerExample
         Console.WriteLine("Your name is " + name);
 
         Console.Write("Enter a positive integer number N: ");
-        int n = consoleScanner.NextInt();
+        int? n = consoleScanner.NextInt();
         Console.Write("Enter N decimal numbers separated by a space: ");
-        decimal[] numbers = new decimal[n];
+        decimal[] numbers = new decimal[n.Value];
         for (int i = 0; i < n; i++)
         {
-            numbers[i] = consoleScanner.NextDecimal();
+            numbers[i] = consoleScanner.NextDecimal().Value;
         }
         Array.Sort(numbers);
         Console.WriteLine("The numbers in ascending order: {0}",
             string.Join(' ', numbers));
+
 
         // File test
 
+        Scanner fileScanner = new Scanner(File.OpenRead(
+            @"..\..\..\Test\test.txt"));
+
         Console.WriteLine("\nFile test\n");
 
-        n = fileScanner.NextInt();
-        numbers = new decimal[n];
-        for (int i = 0; i < n; i++)
+        LinkedList<double> nums = new LinkedList<double>();
+        double? x = fileScanner.NextDouble();
+        while (x != null)
         {
-            numbers[i] = fileScanner.NextDecimal();
+            nums.AddLast(x.Value);
+            x = fileScanner.NextDouble();
         }
-        Array.Sort(numbers);
-        Console.WriteLine("The numbers in ascending order: {0}",
-            string.Join(' ', numbers));
+
+        Console.WriteLine("Numbers in file:");
+        foreach (double num in nums)
+        {
+            Console.Write(num + " ");
+        }
     }
 }
 ```
 test.txt contents:
 ```
   7  
- 12  5.6  32.1      54.44   531.2    909.0001     0.0001   
+ 12  5.6  32.1      54.44   531,2    909.0001     0.0001   
+     
+  234,345  0,222 3.54 5
+  
+ 5    6.4
+  
    
- 
 ```
 This is a sample **input and output** from the above example:
 ```
@@ -119,11 +130,12 @@ Console test
 
 Enter your name: Victor
 Your name is Victor
-Enter a positive integer number N: 3
-Enter N decimal numbers separated by a space: 10.4  999     3.645
-The numbers in ascending order: 3,645 10,4 999
+Enter a positive integer number N: 5
+Enter N decimal numbers separated by a space: 10.4  12.001 123   4  32,02
+The numbers in ascending order: 4 10,4 12,001 32,02 123
 
 File test
 
-The numbers in ascending order: 0,0001 5,6 12 32,1 54,44 531,2 909,0001
+Numbers in file:
+7 12 5,6 32,1 54,44 531,2 909,0001 0,0001 234,345 0,222 3,54 5 5 6,4
 ```
