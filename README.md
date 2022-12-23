@@ -15,7 +15,7 @@ Install-Package IOutils.Scanner
 ```
 
 
-Sample C++ Code
+Sample Java Code
 ---------------
 
 ```java
